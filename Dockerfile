@@ -49,6 +49,8 @@ COPY --link --chmod=755 docker-entrypoint.sh /usr/local/bin/
 COPY --link --from=builder --chown=1000:1000 /app/.next/standalone/ ./
 COPY --link --from=builder --chown=1000:1000 /app/.next/static/ ./.next/static
 
+RUN mkdir -p /app/config && chown -R 1000:1000 /app
+
 RUN apk add --no-cache su-exec iputils-ping shadow
 
 USER root
