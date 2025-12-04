@@ -1,0 +1,62 @@
+name: Deploy Multi-Container App
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    # --- BUILD & PUSH ---
+    - name: Build and push
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPO: ${{ secrets.ECR_REPOSITORY }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPO:latest .
+        docker push $ECR_REGISTRY/$ECR_REPO:latest
+
+    # --- DEPLOY TO EC2 ---
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          # 1. Login to Docker
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
+
+          # 2. Go to app folder
+          mkdir -p /home/ec2-user/my-app
+          cd /home/ec2-user/my-app
+
+          # 3. Create/Overwrite the .env file with values from GitHub
+          echo "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}" > .env
+          echo "ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}" >> .env
+
+          # 4. Copy docker-compose.prod.yml to EC2 instance
+          scp docker-compose.prod.yml ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/my-app/docker-compose.prod.yml
+
+          # 5. Pull and Start
+          docker-compose -f docker-compose.prod.yml pull
+          docker-compose -f docker-compose.prod.yml up -d --remove-orphans
+
+          # 6. Cleanup unused images to save space
+          docker system prune -f

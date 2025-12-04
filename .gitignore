@@ -40,9 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# homepage
-/config
-
 # IDEs
 /.idea/
 
