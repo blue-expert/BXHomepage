@@ -1,0 +1,16 @@
+- greeting:
+    text_size: xl
+    text: "Welcome to Blue Expert Tools"
+
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
+      dateStyle: long
+
+# Optional: Shows server CPU/Memory usage
+# (Requires correct Docker volume mapping of /proc, see note below)
+- resources:
+    cpu: true
+    memory: true
+    disk: /

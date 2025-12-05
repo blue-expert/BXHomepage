@@ -1,3 +1,12 @@
-- Own tools:
-    - TEA:
-        href: http://tea:8080
+- Blue Expert Apps:
+    - TEA Analysis:
+        icon: mdi-chart-box-outline # Material Design Icon
+        href: https://tea.tools.blue-expert.com
+        description: "Targeted Expert Analysis"
+        # Optional: "Ping" the container to see if it's online (Green dot)
+        ping: http://tea:8080
+
+    - Homepage Tools:
+        icon: dashboard
+        href: https://tools.blue-expert.com
+        description: "Main Dashboard"
