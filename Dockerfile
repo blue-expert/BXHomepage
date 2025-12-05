@@ -56,7 +56,7 @@ RUN apk add --no-cache su-exec iputils-ping shadow
 USER root
 
 ENV NODE_ENV=production
-ENV HOMEPAGE_ALLOWED_HOSTS=18.158.31.117
+ENV HOMEPAGE_ALLOWED_HOSTS=18.158.31.117,tools.blue-expert.com
 ENV HOSTNAME=0.0.0.0
 ENV PORT=80
 EXPOSE $PORT
