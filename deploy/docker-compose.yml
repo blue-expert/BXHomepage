@@ -8,6 +8,8 @@ services:
     volumes:
       - ./config:/app/config
     # No ports mapped to host; only Nginx talks to this
+    networks:
+      - bx-net
 
   nginx:
     image: nginx:latest
@@ -22,6 +24,8 @@ services:
       - ./certbot/www:/var/www/certbot
     depends_on:
       - app
+    networks:
+      - bx-net
 
   tea:
     image: ghcr.io/blue-expert/gm-tea:latest
@@ -33,6 +37,8 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: "postgresql+psycopg2://postgres:postgres@db:5432/db"
+    networks:
+      - bx-net
 
   db:
     image: postgres:15
@@ -51,7 +57,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - bx-net
 
 volumes:
   pgdata:
+
+networks:
+  bx-net:
+    driver: bridge
 
