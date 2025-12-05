@@ -41,7 +41,7 @@ jobs:
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
         source: "deploy/*"
-        target: "/home/ec2-user/my-web-server"
+        target: "/home/ec2-user/bx-homepage"
         strip_components: 1 # Removes 'deploy/' folder nesting
 
     # --- DEPLOY WITH COMPOSE ---
@@ -53,7 +53,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           # 1. Go to the app directory
-          cd /home/ec2-user/my-web-server
+          cd /home/ec2-user/bx-homepage
 
           # 2. Login to ECR
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
