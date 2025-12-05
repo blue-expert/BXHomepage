@@ -33,6 +33,21 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
+    # --- PREPARE PERMISSIONS ---
+    - name: Fix file permissions
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          # 1. Create directory if it doesn't exist
+          mkdir -p /home/ec2-user/bx-homepage/config
+
+          # 2. Force ec2-user to own the folder (requires sudo)
+          # This allows the SCP action to overwrite files
+          sudo chown -R ec2-user:ec2-user /home/ec2-user/bx-homepage/config
+
     # --- COPY CONFIG FILES ---
 
     # 1. Copy deployment files (docker-compose, etc.) from 'deploy/' to root of app folder
