@@ -2,7 +2,8 @@ title: BX Dashboard
 
 background:
   # A nice professional abstract blue background from Unsplash
-  image: https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop
+  image: https://images.unsplash.com/photo-1619779854918-013a8e70452a?q=80&w=2140&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+  # https://unsplash.com/photos/blue-sky-with-stars-during-daytime-6AKLKt-KmdY&auto=format&fit=crop
   # Or use a solid dark blue gradient if you prefer:
   # image: linear-gradient(to right, #0f2027, #203a43, #2c5364)
   opacity: 50 # Darkens the image so text is readable
