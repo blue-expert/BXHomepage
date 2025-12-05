@@ -48,6 +48,33 @@ jobs:
           # This allows the SCP action to overwrite files
           sudo chown -R ec2-user:ec2-user /home/ec2-user/bx-homepage/config
 
+    - name: Create .env file and Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /home/ec2-user/bx-homepage
+
+          # 1. Create the .env file dynamically
+          # We use 'printf' or 'echo' to write the secrets into the file
+          echo "APP_IMAGE=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest" > .env
+          echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
+          echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
+          echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> .env
+          echo "OAUTH_COOKIE_SECRET=${{ secrets.OAUTH_COOKIE_SECRET }}" >> .env
+
+          # 2. Login to ECR
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
+
+          # 3. Pull and Up
+          # Docker Compose automatically reads the .env file we just made
+          docker compose pull
+          docker compose up -d --remove-orphans
+
+          docker system prune -f
+
     # --- COPY CONFIG FILES ---
 
     # 1. Copy deployment files (docker-compose, etc.) from 'deploy/' to root of app folder
