@@ -5,6 +5,8 @@ services:
     restart: always
     environment:
       - PORT=80
+    volumes:
+      - ./config:/app/config
     # No ports mapped to host; only Nginx talks to this
 
   nginx:
