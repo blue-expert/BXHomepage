@@ -9,7 +9,6 @@
       dateStyle: long
 
 # Optional: Shows server CPU/Memory usage
-# (Requires correct Docker volume mapping of /proc, see note below)
 - resources:
     cpu: true
     memory: true
