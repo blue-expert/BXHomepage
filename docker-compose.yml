@@ -38,7 +38,7 @@ services:
     container_name: homepage-app
     restart: always
     environment:
-      - PORT=80
+      - HOMEPAGE_ALLOWED_HOSTS=tools.blue-expert.com
     volumes:
       - ./config:/app/config
     # No ports mapped to host; only Nginx talks to this
@@ -54,7 +54,10 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot/conf:/etc/letsencrypt
+      - ./certs/fullchain.pem:/etc/letsencrypt/live/tools.blue-expert.com/fullchain.pem:ro
+      - ./certs/privkey.pem:/etc/letsencrypt/live/tools.blue-expert.com/privkey.pem:ro
+      - ./certs/tea/fullchain.pem:/etc/letsencrypt/live/tea.tools.blue-expert.com/fullchain.pem:ro
+      - ./certs/tea/privkey.pem:/etc/letsencrypt/live/tea.tools.blue-expert.com/privkey.pem:ro
       - ./certbot/www:/var/www/certbot
     depends_on:
       - app
@@ -78,7 +81,8 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: "postgresql+psycopg2://postgres:postgres@db:5432/db"
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/db
+      - DEV_MODE=True
     networks:
       - bx-net
 
