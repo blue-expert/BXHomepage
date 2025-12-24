@@ -2,6 +2,6 @@
     - TEA Analysis:
         icon: mdi-chart-box-outline # Material Design Icon
         href: https://tea.tools.blue-expert.com
-        description: "Targeted Expert Analysis"
+        description: "Technical Economical Assessment"
         # Optional: "Ping" the container to see if it's online (Green dot)
         ping: http://tea:8080

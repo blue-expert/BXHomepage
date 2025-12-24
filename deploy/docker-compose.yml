@@ -17,10 +17,10 @@ services:
       - OAUTH2_PROXY_OIDC_ISSUER_URL=https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0
       - OAUTH2_PROXY_COOKIE_SECRET=${OAUTH_COOKIE_SECRET}
       - OAUTH2_PROXY_REDIRECT_URL=https://tools.blue-expert.com/oauth2/callback
-      
+
       # --- SESSION LIFETIME ---
       - OAUTH2_PROXY_SCOPE=openid email profile offline_access
-      - OAUTH2_PROXY_COOKIE_EXPIRE=168h # 7 days
+      - OAUTH2_PROXY_COOKIE_EXPIRE=24h # 1 day
 
       # --- SESSION STORAGE (REDIS) ---
       - OAUTH2_PROXY_SESSION_STORE_TYPE=redis
