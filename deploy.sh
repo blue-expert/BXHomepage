@@ -11,7 +11,7 @@ cd /root/BXHomepage
 # 2. Pull the latest code from GitHub
 # (This relies on the git credentials you just saved!)
 echo "📥 Pulling latest changes..."
-git pull origin delete-most-files  # OR 'main' (check which branch you are using!)
+git pull origin main  # OR 'main' (check which branch you are using!)
 
 # 3. Refresh Secrets (Optional, but good practice)
 # echo "🔑 Refreshing secrets..."
