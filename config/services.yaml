@@ -1,7 +1,31 @@
+
 - Blue Expert Apps:
     - TEA Analysis:
         icon: mdi-chart-box-outline # Material Design Icon
         href: https://tea.tools.blue-expert.com
+        server: http://tea:8080
         description: "Technical Economical Assessment"
         # Optional: "Ping" the container to see if it's online (Green dot)
         ping: http://tea:8080
+- Sharepoint Links:
+    - Training Material:
+        icon: mdi-school-outline
+        href: https://bluexprt.sharepoint.com/:f:/s/BlueTeam/IgA_c7W00IV4QY1HgPsLmoWeAUUYadoqkSYTTWCAh1qAgj4?e=aGIOPL
+        description: "Sharepoint link to BX training material"
+    - Planning:
+        icon: mdi-clock-check-outline
+        href: https://bluexprt.sharepoint.com/:x:/s/BlueTeam/IQBs46xJuUsiRYhzclJr0YMzAQpZcZM_e_0Et63spmyX8j4?e=PZHGR2
+        description: "Excel to planning and billing of BX"
+    - Horizon 2026 calls:
+        icon: si-europeanunion
+        href: https://bluexprt.sharepoint.com/:x:/s/BlueTeam/IQBLlL14VNjrRpMGlKfxQ224AVMtlAlrD14TarUuBnUdtWY?e=eCyDLa
+        description: "Excel to upcoming Horizon calls interesting for BX in 2026"
+- External BX Links:
+    - Salex BX - CRM:
+        icon: si-notion
+        href: http://www.notion.so/11c10b5ae31b80a4950ac690cb6be469?v=11c10b5ae31b81f3a6fb000cd00196a6
+        description: "The CRM tool made in Notion for BX"
+    - Canva:
+        icon: si-c
+        href: canva.com
+        description: "email: info@blue-expert.com, password: MarketingXPRT123"
