@@ -27,7 +27,7 @@ services:
       - OAUTH2_PROXY_REDIS_CONNECTION_URL=redis://redis:6379
 
       - OAUTH2_PROXY_HTTP_ADDRESS=0.0.0.0:4180
-      - OAUTH2_PROXY_UPSTREAMS=http://homepage-app:80
+      - OAUTH2_PROXY_UPSTREAMS=http://homepage-app:3000
       - OAUTH2_PROXY_REVERSE_PROXY=true
       - OAUTH2_PROXY_SET_XAUTHREQUEST=true
       - OAUTH2_PROXY_PASS_BASIC_AUTH=false
@@ -72,30 +72,14 @@ services:
     networks:
       - bx-net
 
-  tea:
-    image: ghcr.io/blue-expert/gm-tea:latest
-    container_name: tea
-    ports:
-      - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/db
-      - DEV_MODE=True
-    networks:
-      - bx-net
-
   db:
     image: postgres:15
     container_name: db
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db
-    ports:
-      - "5432:5432"
+      POSTGRES_PASSWORD: BxPassword2026
+      POSTGRES_DB: tea
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -112,3 +96,4 @@ volumes:
 networks:
   bx-net:
     driver: bridge
+    name: bx-net

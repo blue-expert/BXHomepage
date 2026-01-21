@@ -24,8 +24,12 @@
     - Salex BX - CRM:
         icon: si-notion
         href: http://www.notion.so/11c10b5ae31b80a4950ac690cb6be469?v=11c10b5ae31b81f3a6fb000cd00196a6
-        description: "The CRM tool made in Notion for BX"
+        description: "email: join_us@blue-expert.com, password: SalesBX1234"
     - Canva:
         icon: si-c
         href: canva.com
         description: "email: info@blue-expert.com, password: MarketingXPRT123"
+    - Undetectable:
+        icon: mdi-text-search
+        href: https://undetectable.ai
+        description: "email: join_us@blue-expert.com, password: -"
